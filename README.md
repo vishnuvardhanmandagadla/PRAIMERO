@@ -37,12 +37,15 @@ src/
 ├── components/
 │   ├── Navbar/                      # Fixed navigation bar
 │   ├── Hero3D/                      # Landing hero with 3D cube grid
-│   ├── About/                       # "Who We Are" section with stats
-│   ├── Services/                    # "Our Expertise" service cards
+│   ├── Intro/                       # Splash intro animation with curtain rising effect
+│   ├── About/                       # "Who We Are" section (two-column layout)
+│   ├── Metrics/                     # Enterprise metrics with animated counters
+│   ├── WhyChooseUs/                 # "Why PRAIMERO" features grid
+│   ├── Partners/                    # Technology partners marquee
+│   ├── Services/                     # "Our Expertise" service cards
 │   ├── CTA/                         # Call-to-action section
 │   ├── Footer/                      # Site footer
-│   ├── Intro/                       # Splash intro animation (disabled)
-│   └── ServiceModels/               # 3D models for service pages
+│   └── ServiceModels/                # 3D models for service pages
 │       ├── ERPModel3D               # Stacked data layers
 │       ├── SalesforceModel3D        # Orbiting network nodes
 │       └── ServiceNowModel3D        # Interlocking gears
@@ -50,7 +53,9 @@ src/
     ├── Landing/LandingPage.jsx      # Home page
     ├── ERP/ERPPage.jsx              # Oracle ERP service page
     ├── Salesforce/SalesforcePage.jsx # Salesforce service page
-    ├── ServiceNow/ServiceNowPage.jsx# ServiceNow service page
+    ├── ServiceNow/ServiceNowPage.jsx # ServiceNow service page
+    ├── CaseStudies/                 # Case studies listing page
+    ├── Insights/                    # Insights/blog listing page
     └── Contact/ContactPage.jsx      # Contact form page
 ```
 
@@ -60,17 +65,38 @@ src/
 
 | Route          | Page            | Description                          |
 |----------------|-----------------|--------------------------------------|
-| `/`            | LandingPage     | Home with hero, about, services, CTA |
+| `/`            | LandingPage     | Home with intro, hero, about, partners, services, metrics, why choose us, CTA |
 | `/erp`         | ERPPage         | Oracle ERP service details           |
 | `/salesforce`  | SalesforcePage  | Salesforce CRM service details       |
 | `/servicenow`  | ServiceNowPage  | ServiceNow automation details        |
+| `/case-studies`| CaseStudies     | Case studies listing page            |
+| `/case-studies/:id` | CaseDetail | Individual case study detail page   |
+| `/insights`    | Insights        | Insights/blog listing page           |
+| `/insights/:slug` | Post         | Individual blog post page            |
 | `/contact`     | ContactPage     | Contact form with info sidebar       |
 
-All service pages and the contact page are **lazy-loaded** via `React.lazy()` for faster initial page load.
+All non-landing pages are **lazy-loaded** via `React.lazy()` for faster initial page load.
 
 ---
 
 ## Sections Breakdown
+
+### Intro Animation
+
+Splash screen animation that plays on initial page load, featuring:
+
+- **Animation Sequence:**
+  1. AI text appears first with thick purple gradient
+  2. Letters "PR" and "MERO" swipe in from left
+  3. All letters hold visible
+  4. Text content fades out and rises slightly
+  5. **Curtain rising effect:** Entire intro component unmasked from bottom to top using `clip-path`, progressively revealing the hero section underneath
+
+- **Design:** Black background with white text, purple gradient on "AI" word
+- **Technology:** GSAP timeline animations
+- **Integration:** Shows only on home page (`/`), skips on other routes
+
+---
 
 ### Navbar
 
@@ -95,52 +121,109 @@ Full-viewport hero section with an interactive 3D isometric cube grid and brand 
 - Cubes fade in with staggered CSS animation on page load
 
 **Content:**
-- Brand title: "PRAI" (dark) + "MERO" (purple gradient)
-- Subtitle: "Empowering Enterprises Through Intelligent Innovation"
-- Description paragraph about AI-driven enterprise solutions
-- Pill-styled tags: AI, ERP, CRM, CLOUD, AUTOMATION, ANALYTICS
-- Two action buttons: "Explore Solutions" (outline) and "Start Your Transformation" (dark primary with + icon)
+- Tag badge: "Enterprise AI Solutions" with pulsing dot indicator
+- Title: "Empowering Enterprises Through Intelligent Innovation" (with gradient accent on "Intelligent Innovation")
+- Description: Concise two-sentence overview of AI-driven platforms
+- Pill-styled tags: AI, ERP, CRM, AUTOMATION
+- Two action buttons: "Explore" (outline) and "Get Started" (primary with + icon)
 
-**Background:** Light gradient (`#fafafa` to `#f2f0fa`) with decorative pink and purple radial accent glows.
+**Typography:**
+- Uses CSS variable typography system (`var(--text-5xl)`, `var(--font-display)`, etc.)
+- Enhanced text colors for better contrast and readability
+- Proper letter-spacing and line-height following design system
+
+**Background:** Light purplish gradient matching landing page theme with decorative radial accent glows.
 
 ---
 
 ### About (Landing Page)
 
-"Who We Are" section presented in a rounded card layout with premium gradient overlays.
+"Who We Are" section with two-column grid layout.
+
+**Layout:**
+- Left column: Text content (title, description paragraphs)
+- Right column: Image placeholder (purple gradient with dashed border)
 
 **Content:**
-- Section label with flanking decorative gradient lines
-- Title: "Redefining Enterprise Intelligence" (with gradient-text emphasis)
-- Three paragraphs describing PRAIMERO's mission and approach
-- Decorative gradient divider line below content
+- Title with purple-blue gradient accent on key words
+- Multiple paragraphs describing PRAIMERO's mission and approach
+- No box shape - clean, minimal design
 
-**Stats Grid (4 cards):**
-| Value | Label              |
-|-------|--------------------|
-| 50+   | Enterprise Clients |
-| 3     | Core Platforms     |
-| 99%   | Client Retention   |
-| 24/7  | Support Coverage   |
+**Design:** Two-column grid (`grid-template-columns: 1fr 1fr`), no rounded card styling, integrated with landing page background.
 
-Each stat card features a purple gradient accent bar on top, white background with subtle inner highlight, and hover glow effect.
+---
 
-**Design:** Rounded card (`border-radius: 32px`) with margin from viewport edges, purple-blue gradient overlays, and `content-visibility: auto` for off-screen rendering optimization.
+### Metrics (Landing Page)
+
+Enterprise metrics section with animated counters that trigger on scroll.
+
+**Metrics:**
+- 50+ Enterprise Clients
+- 99% Client Retention
+- 24/7 Support Coverage
+- 3 Core Platforms
+
+**Features:**
+- Animated counters that count from 0 to target value when section enters viewport
+- Handles suffixes: `+`, `%`, `/7`
+- Clean, minimal design with gradient text on numbers
+- Light purplish background matching landing page theme
+
+**Typography:** Uses design system typography variables for consistent sizing and spacing.
+
+---
+
+### WhyChooseUs (Landing Page)
+
+"Why PRAIMERO" features section with collage-style grid layout.
+
+**Layout:**
+- Responsive grid with varied card sizes (large, tall, wide, normal)
+- Expanded to full viewport width
+- Left column: 2 cards (AI-First, Fast Delivery)
+- Middle column: 1 large card (Experts)
+- Right column: 3 cards (Scalable, PRAIMERO logo, Innovation)
+
+**Features (10 total):**
+- AI-First, Fast Delivery, Experts, Scalable, Innovation, Compliance, Customization, Integration, and more
+
+**Design:**
+- Light purplish background matching landing page
+- Clean cards with icons using SVG gradients
+- No borders or backgrounds on cards - minimal, elegant design
+- Icons from `react-icons` library
+
+---
+
+### Partners (Landing Page)
+
+Technology partners section with infinite marquee animation.
+
+**Features:**
+- Horizontal scrolling marquee of partner logos
+- Infinite loop animation
+- Partner icons from `react-icons/si` (Simple Icons)
+- Purple-blue gradient text matching theme
+- White background with subtle borders
+
+**Design:** Clean, minimal marquee with smooth scrolling animation.
 
 ---
 
 ### Services (Landing Page)
 
-"Our Expertise" section locked to viewport height (`100vh`) with animated background effects.
+"Our Expertise" section with animated background effects.
 
 **Background:**
-- Rich purple-to-blue radial gradient layers
-- Four animated amoeba blobs (blurred gradient elements) drifting across the background with organic shapes
+- Light purplish gradient (matching landing page theme)
+- Rich purple-dominant radial gradient layers (more purple than blue)
+- Four animated blue amoeba blobs (blurred gradient elements) drifting across the background with organic shapes
 - Fine-grain SVG noise texture overlay (`feTurbulence`, `mix-blend-mode: overlay`)
 
 **Cards (3 service cards in a grid):**
 Each card displays:
-- Icon, numbered label (01-03)
+- Custom SVG icon (from `ServiceIcon` component)
+- Numbered label (01-03)
 - Service title and short description
 - Feature pills (e.g., "Financial Intelligence", "Supply Chain Optimization")
 - "Learn More" link with arrow icon
@@ -153,16 +236,28 @@ Each card displays:
 | 2 | Salesforce | Revenue Acceleration, Smart Service Management, Marketing Automation, Einstein AI Integration |
 | 3 | ServiceNow | IT Service Automation, Infrastructure Intelligence, Customer Support Systems, HR Service Platforms |
 
+**Note:** AI Engineering service has been removed.
+
 ---
 
 ### CTA (Landing Page)
 
-Call-to-action section in a rounded card with gradient background matching the About section's design language.
+Call-to-action section with premium dark purple gradient background.
 
-- Title: "The AI your enterprise deserves"
-- Subtitle about elevating operations with AI
-- Two buttons: "Start Free Trial" (outline) and "Get A Demo" (primary)
-- Fade-up scroll animations via Framer Motion
+**Content:**
+- Title: "The **Revolution** Starts Here" (with gradient accent on "Revolution")
+- Subtitle: "Transform your enterprise into an unstoppable force..."
+- Three feature points: 60-Day MVP, 99% Client Retention, 24/7 Support
+- Two buttons: "Join the Revolution" (outline) and "Claim Your Future" (primary)
+
+**Design:**
+- Dark purple gradient background with noise texture
+- Animated orb in background
+- Glassmorphic buttons with curved edges (`border-radius: 999px`)
+- Custom icons from `react-icons` (FaBolt, FaBullseye, FaRocket)
+- Feature points displayed as plain text with icons (no shapes to avoid confusion with buttons)
+
+**Typography:** Uses design system typography variables.
 
 ---
 
@@ -248,22 +343,52 @@ Each service page features a unique CSS 3D model:
 
 ### Color Palette
 
-| Role           | Value                                      |
-|----------------|--------------------------------------------|
-| Pink accent    | `#e8a4c4`                                  |
-| Purple         | `#9575cd`                                  |
-| Blue           | `#5c6bc0`, `#7986cb`                       |
-| Indigo         | `#7e57c2`                                  |
-| Dark navy      | `#1a1a2e`, `#0a0a0f`                       |
-| Light bg       | `#f5f5f5`, `#fafafa`                       |
-| Gradient text  | `linear-gradient(135deg, #9575cd, #5c6bc0)`|
+**Primary Colors:**
+- **Purple gradient (thick):** `linear-gradient(135deg, #1a0a1f 0%, #2d1b3d 25%, #4a2040 50%, #6a4c9a 75%, #7e57c2 100%)` - Used for Services background, CTA background, intro AI text
+- **Purple-blue gradient (text):** `linear-gradient(135deg, #7e57c2 0%, #9575cd 40%, #5c6bc0 100%)` - Used for heading accents
+- **Light purplish background:** Multiple radial gradients with purple tones - Used for landing page, Metrics, WhyChooseUs, Partners, Hero sections
+
+**Accent Colors:**
+- Pink accent: `#e8a4c4`
+- Purple: `#9575cd`, `#7e57c2`
+- Blue: `#5c6bc0`, `#7986cb`
+- Indigo: `#7e57c2`
+
+**Text Colors:**
+- Dark text: `#0a0a1a`, `#1a1a2e`
+- Body text: `rgba(10, 10, 26, 0.85)`
+- Muted text: `#3a3a4e`, `#5a5a6e`
+
+**Backgrounds:**
+- Light base: `#ffffff` with purplish gradient overlays
+- Dark (CTA): `#0a0a0f` with purple gradients
 
 ### Typography
 
-- **Display font:** `var(--font-display)` — Inter Tight
-- **Headings:** 700-800 weight, tight letter-spacing (`-0.02em` to `-0.03em`)
-- **Body:** 400 weight, relaxed line-height (1.6-1.8)
-- **Labels:** Uppercase, `0.12em`-`0.2em` letter-spacing, 600 weight
+**Font Families:**
+- **Display font:** `var(--font-display)` — Inter Tight (for headings, buttons, UI elements)
+- **Body font:** `var(--font-body)` — Inter Tight (for body text, descriptions)
+
+**Font Sizes (CSS Variables):**
+- `--text-xs` to `--text-6xl`: Responsive clamp-based sizes
+- Example: `--text-5xl` = `clamp(2.8rem, 2rem + 4vw, 4.5rem)`
+
+**Letter Spacing:**
+- `--letter-tight`: -0.05em (headings)
+- `--letter-normal`: -0.02em (body)
+- `--letter-wide`: 0.01em (body text)
+- `--letter-wider`: 0.05em (tags, labels)
+- `--letter-widest`: 0.1em (uppercase labels)
+
+**Line Heights:**
+- `--leading-none`: 1 (large headings)
+- `--leading-tight`: 1.1 (headings)
+- `--leading-snug`: 1.2 (subheadings)
+- `--leading-normal`: 1.5 (body)
+- `--leading-relaxed`: 1.6 (descriptions)
+- `--leading-loose`: 1.8 (long-form text)
+
+**Usage:** All components use these CSS variables for consistent typography across the site.
 
 ### Visual Effects
 
@@ -284,6 +409,7 @@ Each service page features a unique CSS 3D model:
 - **Lazy-loaded routes:** Service and contact pages use `React.lazy()` + `Suspense` for code splitting
 - **Batched state updates:** Click wave groups cubes by distance, reducing state updates from ~300 to ~19
 - **Set-based lookups:** `nearbyHovered` uses `Set.has()` (O(1)) instead of `Array.includes()` (O(n))
+- **Intro animation:** Uses GSAP timeline for smooth, performant animations with proper cleanup
 
 ### CSS
 
@@ -306,7 +432,9 @@ Each service page features a unique CSS 3D model:
 | React            | 18.3    | UI framework                   |
 | Vite             | 5.4     | Build tool and dev server      |
 | Framer Motion    | 11.5    | Page transitions and scroll animations |
+| GSAP             | Latest  | Intro animation timeline       |
 | React Router DOM | 6.26    | Client-side routing            |
+| react-icons      | Latest  | Custom SVG icons               |
 | CSS              | -       | Styling (no preprocessor)      |
 
 ---

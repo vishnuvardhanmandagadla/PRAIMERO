@@ -4,9 +4,10 @@
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   background:
     radial-gradient(ellipse 80% 100% at 0% 50%, rgba(171, 71, 188, 0.08) 0%, rgba(156, 39, 176, 0.05) 40%, transparent 70%),
     radial-gradient(ellipse 60% 80% at 20% 80%, rgba(142, 36, 170, 0.06) 0%, rgba(123, 31, 162, 0.04) 50%, transparent 70%),
@@ -15,7 +16,7 @@
     linear-gradient(135deg, #faf5fc 0%, #f5eef9 20%, #f0e6f6 40%, #f5eef9 60%, #faf5fc 80%, #ffffff 100%);
   background-color: #ffffff;
   overflow: hidden;
-  padding: var(--space-16) 0;
+  padding: 0;
 }
 
 /* Decorative accent glow — top-left pink */
@@ -50,8 +51,8 @@
 /* ── 3D Scene ── */
 .hero__scene {
   position: absolute;
-  top: 55%;
-  left: 62%;
+  top: 50%;
+  left: 65%;
   transform: translate(-50%, -50%);
   width: 600px;
   height: 600px;
@@ -317,6 +318,7 @@
   position: relative;
   z-index: 2;
   max-width: 680px;
+  padding-top: var(--space-20);
 }
 
 /* ── Company tag badge ── */
@@ -334,7 +336,7 @@
   letter-spacing: var(--letter-widest);
   line-height: var(--leading-normal);
   color: #5a3d8a;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
   text-transform: uppercase;
 }
 
@@ -353,12 +355,12 @@
 
 .hero__title {
   font-family: var(--font-display);
-  font-size: var(--text-5xl);
-  font-weight: 800;
-  line-height: var(--leading-tight);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: var(--letter-tight);
   position: relative;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
   color: #0a0a1a;
 }
 
@@ -367,17 +369,18 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 600;
 }
 
 .hero__description {
   font-family: var(--font-body);
-  font-size: var(--text-lg);
-  color: rgba(10, 10, 26, 0.85);
+  font-size: var(--text-base);
+  color: rgba(10, 10, 26, 0.7);
   line-height: var(--leading-relaxed);
   letter-spacing: var(--letter-wide);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
   font-weight: 400;
-  max-width: 580px;
+  max-width: 500px;
 }
 
 
@@ -386,7 +389,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
   font-family: var(--font-display);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -570,7 +573,6 @@
 @media (max-width: 768px) {
   .hero {
     align-items: center;
-    padding: var(--space-24) 0;
   }
 
   .hero__scene {

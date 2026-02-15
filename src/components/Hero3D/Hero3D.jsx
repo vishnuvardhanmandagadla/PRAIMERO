@@ -186,8 +186,8 @@ function Hero3D() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.8, ease }}
           >
-            Empowering Enterprises<br />
-            Through <span className="hero__title-accent">Intelligent Innovation</span>
+            Empowering Enterprises Through<br />
+            <span className="hero__title-accent">Intelligent Innovation</span>
           </motion.h1>
 
           <motion.p
