@@ -171,25 +171,24 @@ function Hero3D() {
       <div className="container">
         <div className="hero__content">
           <motion.div
-            className="hero__brand"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
-          >
-            <h1 className="hero__title">
-              PRAIMERO
-            </h1>
-          </motion.div>
-
-          <motion.h2
-            className="hero__subtitle"
+            className="hero__tag"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease }}
+            transition={{ duration: 0.6, ease }}
           >
-            Empowering Enterprises Through
-            <span className="hero__subtitle-accent"> Intelligent Innovation</span>
-          </motion.h2>
+            <span className="hero__tag-dot" />
+            <span>Enterprise AI Solutions</span>
+          </motion.div>
+
+          <motion.h1
+            className="hero__title"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.8, ease }}
+          >
+            Empowering Enterprises<br />
+            Through <span className="hero__title-accent">Intelligent Innovation</span>
+          </motion.h1>
 
           <motion.p
             className="hero__description"
@@ -197,7 +196,7 @@ function Hero3D() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease }}
           >
-            AI-Driven Solutions for Smarter Operations and Scalable Growth. We design and deploy intelligent systems across Oracle, Salesforce, and ServiceNow—enabling enterprises to automate processes, unlock insights, and accelerate performance. PRAIMERO helps organizations move faster, operate smarter, and compete stronger through AI-powered platforms.
+            AI-driven platforms for Oracle, Salesforce, and ServiceNow. Automate processes, unlock insights, accelerate growth.
           </motion.p>
 
           <motion.div
@@ -212,11 +211,7 @@ function Hero3D() {
             <span className="hero__tags-sep">•</span>
             <span>CRM</span>
             <span className="hero__tags-sep">•</span>
-            <span>CLOUD</span>
-            <span className="hero__tags-sep">•</span>
             <span>AUTOMATION</span>
-            <span className="hero__tags-sep">•</span>
-            <span>ANALYTICS</span>
           </motion.div>
 
           <motion.div
@@ -226,10 +221,10 @@ function Hero3D() {
             transition={{ delay: 0.5, duration: 0.6, ease }}
           >
             <Link to="/#services" className="hero__btn hero__btn--outline">
-              <span>Explore Solutions</span>
+              <span>Explore</span>
             </Link>
             <Link to="/contact" className="hero__btn hero__btn--primary">
-              <span>Start Your Transformation</span>
+              <span>Get Started</span>
               <span className="hero__btn-icon">+</span>
             </Link>
           </motion.div>

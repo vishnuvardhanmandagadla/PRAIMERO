@@ -5,8 +5,6 @@ import './Intro.css';
 export default function Intro({ onComplete }) {
   const overlayRef = useRef(null);
   const contentRef = useRef(null);
-  const bgRef = useRef(null);
-  const wipeRef = useRef(null);
   const aiRef = useRef(null);
   const [done, setDone] = useState(false);
 
@@ -22,7 +20,7 @@ export default function Intro({ onComplete }) {
     document.body.style.overflow = 'hidden';
 
     const startAnimation = () => {
-      if (!aiRef.current || !overlayRef.current || !contentRef.current || !bgRef.current || !wipeRef.current) {
+      if (!aiRef.current || !overlayRef.current || !contentRef.current) {
         setTimeout(startAnimation, 100);
         return;
       }
@@ -30,17 +28,15 @@ export default function Intro({ onComplete }) {
       // Check if letter refs are populated
       const beforeRefsReady = beforeAIRefs.current.filter(ref => ref).length === lettersBeforeAI.length;
       const afterRefsReady = afterAIRefs.current.filter(ref => ref).length === lettersAfterAI.length;
-      
+
       if (!beforeRefsReady || !afterRefsReady) {
         setTimeout(startAnimation, 100);
         return;
       }
 
       gsap.set(aiRef.current, { opacity: 0 });
-      gsap.set(overlayRef.current, { opacity: 1 });
+      gsap.set(overlayRef.current, { clipPath: 'inset(0% 0% 0% 0%)' });
       gsap.set(contentRef.current, { opacity: 1, y: 0, scale: 1 });
-      gsap.set(bgRef.current, { clipPath: 'inset(0% 0% 0% 0%)' });
-      gsap.set(wipeRef.current, { scaleY: 0 });
 
       beforeAIRefs.current.forEach((letterRef) => {
         if (letterRef) {
@@ -71,7 +67,6 @@ export default function Intro({ onComplete }) {
         ease: 'power2.out',
       });
 
-
       // Hold AI visible for a moment
       tl.to({}, { duration: 0.3 });
 
@@ -88,28 +83,28 @@ export default function Intro({ onComplete }) {
       // Phase 3: Hold all letters visible
       tl.to({}, { duration: 0.8 });
 
-      // Phase 4: Curtain rising effect - reveal hero progressively
-      // Animate black background to shrink from bottom, revealing hero
-      tl.to(bgRef.current, {
-        clipPath: 'inset(0% 0% 100% 0%)',
-        duration: 0.7,
-        ease: [0.76, 0, 0.24, 1],
+      // Phase 4: Fade out text content, then unmask the hero
+      tl.to(contentRef.current, {
+        opacity: 0,
+        y: -40,
+        duration: 0.5,
+        ease: 'power2.in',
       }, '+=0.2');
-      
-      // Wipe curtain rises to cover intro content
-      tl.to(wipeRef.current, {
-        scaleY: 1,
-        duration: 0.7,
-        ease: [0.76, 0, 0.24, 1],
+
+      // Phase 5: Curtain rises — clip entire intro from bottom to top,
+      // progressively unmasking the real hero underneath
+      tl.to(overlayRef.current, {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        duration: 1.0,
+        ease: 'power3.inOut',
         onComplete: () => {
-          // Re-enable scrolling
           document.body.style.overflow = '';
           setDone(true);
           setTimeout(() => {
             onComplete?.();
           }, 100);
         },
-      }, '-=0.7');
+      }, '-=0.3');
     };
 
     const timeout = setTimeout(startAnimation, 300);
@@ -124,7 +119,7 @@ export default function Intro({ onComplete }) {
 
   return (
     <div className="intro" ref={overlayRef}>
-      <div className="intro__bg" ref={bgRef} />
+      <div className="intro__bg" />
       <div className="intro__content" ref={contentRef}>
         <h1 className="intro__text">
           {lettersBeforeAI.map((letter, index) => (
@@ -160,7 +155,6 @@ export default function Intro({ onComplete }) {
           ))}
         </h1>
       </div>
-      <div className="intro__wipe" ref={wipeRef} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import Lenis from 'lenis'
 import Navbar from './components/Navbar/Navbar'
 import LandingPage from './pages/Landing/LandingPage'
 import Intro from './components/Intro/Intro'
@@ -17,6 +18,36 @@ const ContactPage = lazy(() => import('./pages/Contact/ContactPage'))
 
 function App() {
   const location = useLocation()
+  const lenisRef = useRef(null)
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+      smoothTouch: false,
+    })
+    lenisRef.current = lenis
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    return () => {
+      lenis.destroy()
+      lenisRef.current = null
+    }
+  }, [])
+
+  // Scroll to top on route change
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true })
+    }
+  }, [location.pathname])
+
   const [introComplete, setIntroComplete] = useState(() => {
     // Always show intro on home page, regardless of localStorage
     if (location.pathname !== '/') {

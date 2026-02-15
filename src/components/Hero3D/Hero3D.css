@@ -319,58 +319,65 @@
   max-width: 680px;
 }
 
-.hero__brand {
+/* ── Company tag badge ── */
+.hero__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(126, 87, 194, 0.4);
+  background: rgba(126, 87, 194, 0.12);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--letter-widest);
+  line-height: var(--leading-normal);
+  color: #5a3d8a;
   margin-bottom: var(--space-6);
+  text-transform: uppercase;
+}
+
+.hero__tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7e57c2;
+  animation: tagPulse 2s ease-in-out infinite;
+}
+
+@keyframes tagPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 7rem);
+  font-size: var(--text-5xl);
   font-weight: 800;
   line-height: var(--leading-tight);
   letter-spacing: var(--letter-tight);
   position: relative;
   margin-bottom: var(--space-6);
-  background: linear-gradient(135deg, #2d1b3d 0%, #4a2040 25%, #6a4c9a 50%, #7e57c2 75%, #9575cd 100%);
+  color: #0a0a1a;
+}
+
+.hero__title-accent {
+  background: linear-gradient(135deg, #7e57c2 0%, #9575cd 40%, #5c6bc0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.hero__subtitle {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
-  font-weight: 600;
-  line-height: var(--leading-snug);
-  color: #1a1a2e;
-  margin-bottom: var(--space-6);
-  letter-spacing: var(--letter-normal);
-}
-
-.hero__subtitle-accent {
-  background: linear-gradient(135deg, #9575cd 0%, #7e57c2 50%, #5c6bc0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
 }
 
 .hero__description {
-  font-size: clamp(1rem, 2vw, 1.125rem);
-  color: rgba(26, 26, 46, 0.7);
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: rgba(10, 10, 26, 0.85);
   line-height: var(--leading-relaxed);
-  margin-bottom: var(--space-8);
+  letter-spacing: var(--letter-wide);
+  margin-bottom: var(--space-6);
   font-weight: 400;
-  max-width: 600px;
+  max-width: 580px;
 }
 
 
@@ -379,11 +386,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: var(--space-8);
-  font-size: 11px;
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.12em;
-  color: #5a5a6e;
+  letter-spacing: var(--letter-wider);
+  line-height: var(--leading-normal);
+  color: #3a3a4e;
   flex-wrap: wrap;
 }
 
@@ -396,9 +405,9 @@
 }
 
 .hero__tags > span:not(.hero__tags-sep):hover {
-  background: rgba(92, 107, 192, 0.1);
-  border-color: rgba(92, 107, 192, 0.22);
-  color: #5c6bc0;
+  background: rgba(92, 107, 192, 0.15);
+  border-color: rgba(92, 107, 192, 0.3);
+  color: #4a5ab0;
 }
 
 .hero__tags-sep {
@@ -423,11 +432,12 @@
   font-size: var(--text-base);
   font-weight: 600;
   font-family: var(--font-display);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--letter-normal);
   border-radius: 999px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   min-width: 160px;
-  letter-spacing: 0.01em;
   position: relative;
   overflow: hidden;
   height: 52px;
@@ -435,18 +445,18 @@
 
 .hero__btn--outline {
   background: rgba(255, 255, 255, 0.95);
-  color: #1a1a2e;
-  border: 2px solid rgba(26, 26, 46, 0.1);
+  color: #0a0a1a;
+  border: 2px solid rgba(10, 10, 26, 0.15);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(10px);
 }
 
 .hero__btn--outline:hover {
-  background: #1a1a2e;
+  background: #0a0a1a;
   color: #ffffff;
-  border-color: #1a1a2e;
+  border-color: #0a0a1a;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(26, 26, 46, 0.2);
+  box-shadow: 0 8px 24px rgba(10, 10, 26, 0.25);
 }
 
 .hero__btn--primary {

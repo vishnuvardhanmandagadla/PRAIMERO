@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import TextHoverEffect from '../ui/TextHoverEffect'
 import './Footer.css'
 
 const ease = [0.16, 1, 0.3, 1]
@@ -85,6 +86,11 @@ function Footer() {
               </div>
             </motion.div>
           </div>
+        </div>
+
+        {/* Large PRAIMERO text hover effect */}
+        <div className="footer__hover-text">
+          <TextHoverEffect text="PRAIMERO" />
         </div>
 
         <motion.div

@@ -127,6 +127,16 @@
   background: rgba(92, 107, 192, 0.1);
 }
 
+/* ── PRAIMERO Text Hover Effect ── */
+.footer__hover-text {
+  position: relative;
+  width: 100%;
+  height: clamp(100px, 14vw, 180px);
+  margin: var(--space-4) 0 var(--space-2);
+  overflow: hidden;
+  user-select: none;
+}
+
 .footer__bottom {
   display: flex;
   align-items: center;
