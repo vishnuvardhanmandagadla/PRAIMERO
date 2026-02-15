@@ -1,0 +1,369 @@
+/* ══════════════════════════════════════════════════════════════
+   Salesforce Model — Orbiting Customer Network (3D)
+
+   Layout
+   ──────
+   Hub  : 58 px solid sphere, 2 concentric pulse rings
+   Sales     orbit : 160 px ø,   0° tilt,  7 s — 42 px node (pink)
+   Service   orbit : 220 px ø,  55° tilt, 10 s — 36 px node (blue)
+   Marketing orbit : 240 px ø, 115° tilt, 13 s — 36 px node (purple)
+   Commerce  orbit : 290 px ø, 160° tilt, 16 s — 32 px node (indigo)
+
+   Orbit radii : 80 / 110 / 120 / 145 px
+   Counter-rotation keeps every node + label upright.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Scene ── */
+.sf-model {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.sf-model__system {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  transform-style: preserve-3d;
+  transform: rotateX(20deg) rotateY(-15deg);
+  animation: sfDrift 10s ease-in-out infinite;
+}
+
+@keyframes sfDrift {
+  0%, 100% { transform: rotateX(20deg) rotateY(-20deg); }
+  50%      { transform: rotateX(20deg) rotateY(-10deg); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Hub — solid sphere with concentric pulse rings
+   ══════════════════════════════════════════════════════════════ */
+.sf-model__hub {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.28) 0%, transparent 50%),
+    linear-gradient(145deg, #f0b8d4 0%, #e8a4c4 40%, #d488ae 100%);
+  box-shadow:
+    0 0 28px rgba(232, 164, 196, 0.5),
+    0 0 60px rgba(232, 164, 196, 0.15),
+    inset 0 1px 3px rgba(255, 255, 255, 0.25),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+  transition: box-shadow 0.4s ease;
+}
+
+/* Inner pulse ring */
+.sf-model__hub::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 164, 196, 0.3);
+  animation: sfPulse 3s ease-in-out infinite;
+}
+
+/* Outer pulse ring */
+.sf-model__hub::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 104px;
+  height: 104px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(232, 164, 196, 0.15);
+  animation: sfPulse 3s ease-in-out infinite -1.2s;
+}
+
+@keyframes sfPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+.sf-model__hub-label {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Orbit rings — different sizes create visual hierarchy
+   Each ring pulses and carries a data-flow arc (::before).
+   ══════════════════════════════════════════════════════════════ */
+.sf-model__orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  transform: translate(-50%, -50%) rotateZ(var(--tilt));
+  border-radius: 50%;
+  border: 1px solid rgba(168, 196, 232, 0.15);
+  animation: sfRingPulse 5s ease-in-out infinite;
+}
+
+/* Stagger the ring pulse */
+.sf-model__orbit--sales     { animation-delay: 0s; }
+.sf-model__orbit--service   { animation-delay: -1.25s; }
+.sf-model__orbit--marketing { animation-delay: -2.5s; }
+.sf-model__orbit--commerce  { animation-delay: -3.75s; }
+
+@keyframes sfRingPulse {
+  0%, 100% { border-color: rgba(168, 196, 232, 0.12); }
+  50%      { border-color: rgba(168, 196, 232, 0.25); }
+}
+
+/* Data-flow arc — a bright partial border spinning around the ring */
+.sf-model__orbit::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--arc-color, rgba(168, 196, 232, 0.3));
+  border-right-color: var(--arc-half, rgba(168, 196, 232, 0.12));
+  animation: sfArcSpin 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes sfArcSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Per-orbit arc colour */
+.sf-model__orbit--sales {
+  --arc-color: rgba(232, 164, 196, 0.4);
+  --arc-half:  rgba(232, 164, 196, 0.15);
+}
+.sf-model__orbit--service {
+  --arc-color: rgba(168, 196, 232, 0.4);
+  --arc-half:  rgba(168, 196, 232, 0.15);
+}
+.sf-model__orbit--marketing {
+  --arc-color: rgba(149, 117, 205, 0.35);
+  --arc-half:  rgba(149, 117, 205, 0.12);
+}
+.sf-model__orbit--commerce {
+  --arc-color: rgba(92, 107, 192, 0.3);
+  --arc-half:  rgba(92, 107, 192, 0.1);
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Track — invisible zero-size pivot that orbits the ring center
+   ══════════════════════════════════════════════════════════════ */
+.sf-model__track {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: sfOrbitSpin var(--speed) linear infinite;
+  will-change: transform;
+}
+
+@keyframes sfOrbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Nodes — counter-rotate to stay upright
+   ─────
+   Each node uses its own @keyframes with a hardcoded
+   translateX (= orbit radius) so the counter-rotation
+   cancels the parent track's spin exactly.
+   ══════════════════════════════════════════════════════════════ */
+.sf-model__node {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 5;
+  overflow: visible;
+  transition: box-shadow 0.4s ease;
+}
+
+/* ── Sales — inner orbit, r = 80 px, 42 px node ── */
+.sf-model__orbit--sales .sf-model__node {
+  width: 42px;
+  height: 42px;
+  top: -21px;
+  left: -21px;
+  animation: sfNode80 7s linear infinite;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 55%),
+    linear-gradient(145deg, #f0b8d4 0%, #e8a4c4 45%, #d890b4 100%);
+  box-shadow:
+    0 0 18px rgba(232, 164, 196, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Service — middle orbit, r = 110 px, 36 px node ── */
+.sf-model__orbit--service .sf-model__node {
+  width: 36px;
+  height: 36px;
+  top: -18px;
+  left: -18px;
+  animation: sfNode110 10s linear infinite;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 55%),
+    linear-gradient(145deg, #bcd4f0 0%, #a8c4e8 45%, #96b6dc 100%);
+  box-shadow:
+    0 0 16px rgba(168, 196, 232, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Marketing — middle orbit, r = 120 px, 36 px node ── */
+.sf-model__orbit--marketing .sf-model__node {
+  width: 36px;
+  height: 36px;
+  top: -18px;
+  left: -18px;
+  animation: sfNode120 13s linear infinite;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 55%),
+    linear-gradient(145deg, #bca8d8 0%, #9575cd 45%, #866abe 100%);
+  box-shadow:
+    0 0 16px rgba(149, 117, 205, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Commerce — outer orbit, r = 145 px, 32 px node ── */
+.sf-model__orbit--commerce .sf-model__node {
+  width: 32px;
+  height: 32px;
+  top: -16px;
+  left: -16px;
+  animation: sfNode145 16s linear infinite;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 55%),
+    linear-gradient(145deg, #7a8ad4 0%, #5c6bc0 45%, #4e5cb2 100%);
+  box-shadow:
+    0 0 14px rgba(92, 107, 192, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Counter-rotation keyframes — hardcoded radius per orbit */
+@keyframes sfNode80 {
+  from { transform: translateX(80px) rotate(0deg); }
+  to   { transform: translateX(80px) rotate(-360deg); }
+}
+
+@keyframes sfNode110 {
+  from { transform: translateX(110px) rotate(0deg); }
+  to   { transform: translateX(110px) rotate(-360deg); }
+}
+
+@keyframes sfNode120 {
+  from { transform: translateX(120px) rotate(0deg); }
+  to   { transform: translateX(120px) rotate(-360deg); }
+}
+
+@keyframes sfNode145 {
+  from { transform: translateX(145px) rotate(0deg); }
+  to   { transform: translateX(145px) rotate(-360deg); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Node labels — centered inside node, stay upright
+   because the node counter-rotates.
+   ══════════════════════════════════════════════════════════════ */
+.sf-model__node-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.sf-model__orbit--sales .sf-model__node-label {
+  font-size: 8px;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Hover — enhanced glow   (no speed change → no jump)
+   ══════════════════════════════════════════════════════════════ */
+.sf-model__system:hover .sf-model__hub {
+  box-shadow:
+    0 0 38px rgba(232, 164, 196, 0.65),
+    0 0 80px rgba(232, 164, 196, 0.22),
+    inset 0 1px 3px rgba(255, 255, 255, 0.25),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.sf-model__system:hover .sf-model__orbit {
+  border-color: rgba(168, 196, 232, 0.3);
+}
+
+.sf-model__system:hover .sf-model__node {
+  filter: brightness(1.12);
+}
+
+.sf-model__system:hover .sf-model__orbit--sales .sf-model__node {
+  box-shadow:
+    0 0 24px rgba(232, 164, 196, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sf-model__system:hover .sf-model__orbit--service .sf-model__node {
+  box-shadow:
+    0 0 22px rgba(168, 196, 232, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sf-model__system:hover .sf-model__orbit--marketing .sf-model__node {
+  box-shadow:
+    0 0 22px rgba(149, 117, 205, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sf-model__system:hover .sf-model__orbit--commerce .sf-model__node {
+  box-shadow:
+    0 0 20px rgba(92, 107, 192, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}

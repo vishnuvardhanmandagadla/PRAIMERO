@@ -1,0 +1,409 @@
+/* ══════════════════════════════════════════════════════════════
+   ServiceNow Model — Interlocking Gears (3D)
+
+   Geometry
+   ────────
+   Large  gear : 180 px container, 152 px body, 12 teeth (18 × 16)
+   Small  gears: 110 px container,  92 px body,  8 teeth (15 × 13)
+   Pitch radius large  = 76 + 8 = 84 px
+   Pitch radius small  = 46 + 6.5 = 52.5 px
+   Mesh distance ≈ 84 + 52.5 ≈ 137 px
+   Tooth rate: large 30°/s, small 45°/s → 1 tooth/sec both ✓
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Scene ── */
+.sn-model {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.sn-model__assembly {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  transform-style: preserve-3d;
+  transform: rotateX(25deg) rotateZ(-5deg);
+  animation: snDrift 10s ease-in-out infinite;
+}
+
+@keyframes snDrift {
+  0%, 100% { transform: rotateX(25deg) rotateZ(-8deg); }
+  50%      { transform: rotateX(25deg) rotateZ(-2deg); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Gear containers — position + spin
+   ══════════════════════════════════════════════════════════════ */
+.sn-gear {
+  position: absolute;
+  will-change: transform;
+}
+
+/* Large gear — left-center of assembly */
+.sn-gear--lg {
+  width: 180px;
+  height: 180px;
+  top: 50%;
+  left: 36%;
+  transform: translate(-50%, -50%);
+  animation: snSpinCW 12s linear infinite;
+}
+
+/* Small gear 1 — upper-right, meshing with large gear */
+.sn-gear--sm1 {
+  width: 110px;
+  height: 110px;
+  top: 20%;
+  left: 68%;
+  transform: translate(-50%, -50%);
+  animation: snSpinCCW 8s linear infinite;
+}
+
+/* Small gear 2 — lower-right, meshing with large gear */
+.sn-gear--sm2 {
+  width: 110px;
+  height: 110px;
+  top: 74%;
+  left: 72%;
+  transform: translate(-50%, -50%);
+  animation: snSpinCCW 8s linear infinite;
+  animation-delay: -3s;
+}
+
+@keyframes snSpinCW {
+  from { transform: translate(-50%, -50%) rotateZ(0deg); }
+  to   { transform: translate(-50%, -50%) rotateZ(360deg); }
+}
+
+@keyframes snSpinCCW {
+  from { transform: translate(-50%, -50%) rotateZ(0deg); }
+  to   { transform: translate(-50%, -50%) rotateZ(-360deg); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Teeth
+   ────
+   Each tooth sits at the top of its gear container and is
+   rotated around the container's center via transform-origin.
+   The body circle (larger than the tooth-ring) covers the
+   inner portion of every tooth for a seamless profile.
+   ══════════════════════════════════════════════════════════════ */
+.sn-gear__tooth {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+}
+
+/* ── Large gear teeth (12) ── */
+.sn-gear--lg .sn-gear__tooth {
+  width: 18px;
+  height: 16px;
+  margin-left: -9px;
+  border-radius: 4px 4px 1px 1px;
+  transform-origin: 50% 90px;           /* container center */
+  transform: rotate(var(--a));
+  background: linear-gradient(180deg, #7080d0 0%, #5c6bc0 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ── Small gear 1 teeth (8) ── */
+.sn-gear--sm1 .sn-gear__tooth {
+  width: 15px;
+  height: 13px;
+  margin-left: -7.5px;
+  border-radius: 3px 3px 1px 1px;
+  transform-origin: 50% 55px;           /* container center */
+  transform: rotate(var(--a));
+  background: linear-gradient(180deg, #8c98d8 0%, #7986cb 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ── Small gear 2 teeth (8) ── */
+.sn-gear--sm2 .sn-gear__tooth {
+  width: 15px;
+  height: 13px;
+  margin-left: -7.5px;
+  border-radius: 3px 3px 1px 1px;
+  transform-origin: 50% 55px;
+  transform: rotate(var(--a));
+  background: linear-gradient(180deg, #a68ed6 0%, #9575cd 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Gear body — main circular plate
+   Overlaps the inner ~4 px of each tooth for a clean edge.
+   ══════════════════════════════════════════════════════════════ */
+.sn-gear__body {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  transition: box-shadow 0.4s ease;
+}
+
+.sn-gear--lg .sn-gear__body {
+  width: 152px;
+  height: 152px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18) 0%, transparent 55%),
+    linear-gradient(145deg, #6e7ed4 0%, #5c6bc0 45%, #4c5bb0 100%);
+  box-shadow:
+    0 8px 0 -3px #3e4d96,
+    0 10px 30px rgba(60, 75, 160, 0.35),
+    0 0 50px rgba(92, 107, 192, 0.1),
+    inset 0 1px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sn-gear--sm1 .sn-gear__body {
+  width: 92px;
+  height: 92px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18) 0%, transparent 55%),
+    linear-gradient(145deg, #8a96d8 0%, #7986cb 45%, #6a7abc 100%);
+  box-shadow:
+    0 6px 0 -3px #556098,
+    0 8px 24px rgba(85, 96, 152, 0.35),
+    0 0 40px rgba(121, 134, 203, 0.08),
+    inset 0 1px 3px rgba(255, 255, 255, 0.15),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sn-gear--sm2 .sn-gear__body {
+  width: 92px;
+  height: 92px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18) 0%, transparent 55%),
+    linear-gradient(145deg, #a48ad6 0%, #9575cd 45%, #8566be 100%);
+  box-shadow:
+    0 6px 0 -3px #6450a0,
+    0 8px 24px rgba(100, 80, 160, 0.35),
+    0 0 40px rgba(149, 117, 205, 0.08),
+    inset 0 1px 3px rgba(255, 255, 255, 0.15),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Inner ring — decorative concentric circle
+   Pseudo-elements form a cross-spoke pattern.
+   ══════════════════════════════════════════════════════════════ */
+.sn-gear__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sn-gear--lg .sn-gear__ring {
+  width: 96px;
+  height: 96px;
+  transform: translate(-50%, -50%);
+}
+
+.sn-gear--sm1 .sn-gear__ring,
+.sn-gear--sm2 .sn-gear__ring {
+  width: 56px;
+  height: 56px;
+  transform: translate(-50%, -50%);
+}
+
+/* Spokes (cross lines through inner ring) */
+.sn-gear__ring::before,
+.sn-gear__ring::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 1px;
+}
+
+.sn-gear__ring::before {
+  width: 100%;
+  height: 1.5px;
+  transform: translate(-50%, -50%);
+}
+
+.sn-gear__ring::after {
+  width: 1.5px;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Hub — center axle
+   Pseudo-elements add a cross detail.
+   ══════════════════════════════════════════════════════════════ */
+.sn-gear__hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  z-index: 4;
+}
+
+.sn-gear--lg .sn-gear__hub {
+  width: 36px;
+  height: 36px;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 42% 38%, #454565 0%, #2e2e48 55%, #22223a 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.45),
+    0 0 12px rgba(92, 107, 192, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sn-gear--sm1 .sn-gear__hub,
+.sn-gear--sm2 .sn-gear__hub {
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 42% 38%, #454565 0%, #2e2e48 55%, #22223a 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.45),
+    0 0 8px rgba(92, 107, 192, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hub cross */
+.sn-gear__hub::before,
+.sn-gear__hub::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 1px;
+}
+
+.sn-gear__hub::before {
+  width: 55%;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.sn-gear__hub::after {
+  width: 2px;
+  height: 55%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Labels — counter-rotate so text stays upright
+   ══════════════════════════════════════════════════════════════ */
+.sn-gear__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  pointer-events: none;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+.sn-gear--lg .sn-gear__label {
+  font-size: 11px;
+  transform: translate(-50%, -50%);
+  animation: snCounterCW 12s linear infinite;
+}
+
+.sn-gear--sm1 .sn-gear__label {
+  font-size: 8px;
+  transform: translate(-50%, -50%);
+  animation: snCounterCCW 8s linear infinite;
+}
+
+.sn-gear--sm2 .sn-gear__label {
+  font-size: 8px;
+  transform: translate(-50%, -50%);
+  animation: snCounterCCW 8s linear infinite;
+  animation-delay: -3s;
+}
+
+@keyframes snCounterCW {
+  from { transform: translate(-50%, -50%) rotateZ(0deg); }
+  to   { transform: translate(-50%, -50%) rotateZ(-360deg); }
+}
+
+@keyframes snCounterCCW {
+  from { transform: translate(-50%, -50%) rotateZ(0deg); }
+  to   { transform: translate(-50%, -50%) rotateZ(360deg); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   Hover — enhanced glow   (no speed change → no jump)
+   ══════════════════════════════════════════════════════════════ */
+.sn-model__assembly:hover .sn-gear--lg .sn-gear__body {
+  box-shadow:
+    0 8px 0 -3px #3e4d96,
+    0 12px 40px rgba(60, 75, 160, 0.5),
+    0 0 70px rgba(92, 107, 192, 0.2),
+    inset 0 1px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sn-model__assembly:hover .sn-gear--sm1 .sn-gear__body {
+  box-shadow:
+    0 6px 0 -3px #556098,
+    0 10px 32px rgba(85, 96, 152, 0.5),
+    0 0 55px rgba(121, 134, 203, 0.18),
+    inset 0 1px 3px rgba(255, 255, 255, 0.2),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sn-model__assembly:hover .sn-gear--sm2 .sn-gear__body {
+  box-shadow:
+    0 6px 0 -3px #6450a0,
+    0 10px 32px rgba(100, 80, 160, 0.5),
+    0 0 55px rgba(149, 117, 205, 0.18),
+    inset 0 1px 3px rgba(255, 255, 255, 0.2),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sn-model__assembly:hover .sn-gear--lg .sn-gear__tooth {
+  background: linear-gradient(180deg, #8090e0 0%, #6a7ad0 100%);
+}
+
+.sn-model__assembly:hover .sn-gear--sm1 .sn-gear__tooth {
+  background: linear-gradient(180deg, #9ca8e4 0%, #8896d8 100%);
+}
+
+.sn-model__assembly:hover .sn-gear--sm2 .sn-gear__tooth {
+  background: linear-gradient(180deg, #b8a0e0 0%, #a68ed6 100%);
+}
+
+.sn-model__assembly:hover .sn-gear__hub {
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(92, 107, 192, 0.35);
+}
