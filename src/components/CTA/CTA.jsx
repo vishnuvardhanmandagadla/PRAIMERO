@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { FaBolt, FaBullseye, FaRocket } from 'react-icons/fa'
 import './CTA.css'
 
 function CTA() {
@@ -14,7 +15,7 @@ function CTA() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            The AI your enterprise deserves
+            The <em>Revolution</em> Starts Here
           </motion.h2>
 
           <motion.p
@@ -24,8 +25,29 @@ function CTA() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            Elevate your operations, your insights, and your impact with AI that's built for enterprise transformation.
+            Transform your enterprise into an unstoppable force. Where intelligence meets innovation, where data becomes destiny, where your competition becomes history.
           </motion.p>
+
+          <motion.div
+            className="cta__features"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="cta__feature">
+              <FaBolt className="cta__feature-icon" />
+              <span className="cta__feature-text">60-Day MVP Delivery</span>
+            </div>
+            <div className="cta__feature">
+              <FaBullseye className="cta__feature-icon" />
+              <span className="cta__feature-text">99% Client Retention</span>
+            </div>
+            <div className="cta__feature">
+              <FaRocket className="cta__feature-icon" />
+              <span className="cta__feature-text">24/7 Expert Support</span>
+            </div>
+          </motion.div>
 
           <motion.div
             className="cta__actions"
@@ -35,10 +57,10 @@ function CTA() {
             transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link to="/contact" className="cta__btn cta__btn--outline">
-              Start Free Trial
+              Join the Revolution
             </Link>
             <Link to="/contact" className="cta__btn cta__btn--primary">
-              Get A Demo
+              Claim Your Future
             </Link>
           </motion.div>
         </div>

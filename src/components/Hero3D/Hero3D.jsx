@@ -5,18 +5,20 @@ import './Hero3D.css'
 
 const ease = [0.16, 1, 0.3, 1]
 
-// Generate grid positions for cubes
+// Generate grid positions for cubes (pre-compute transitions for memo stability)
 const generateCubes = () => {
   const cubes = []
   const gridSize = 10
 
   for (let row = 0; row < gridSize; row++) {
     for (let col = 0; col < gridSize; col++) {
+      const delay = (row + col) * 0.02
       cubes.push({
         id: `${row}-${col}`,
         row,
         col,
-        delay: (row + col) * 0.02,
+        delay,
+        transition: { delay: 0.5 + delay, duration: 0.4, ease },
       })
     }
   }
@@ -24,19 +26,23 @@ const generateCubes = () => {
 }
 
 const cubes = generateCubes()
+const cubeInitial = { opacity: 0 }
+const cubeAnimate = { opacity: 1 }
 
 // Memoized individual cube — only re-renders when its own state changes
 const Cube = memo(function Cube({ cube, isHovered, isNearby, isGlowing, onHover, onClick }) {
   const className = `hero__cube${isHovered ? ' hero__cube--hovered' : ''}${isNearby ? ' hero__cube--nearby' : ''}${isGlowing ? ' hero__cube--glow' : ''}`
 
   return (
-    <div
+    <motion.div
       className={className}
       style={{
         '--row': cube.row,
         '--col': cube.col,
-        animationDelay: `${0.5 + cube.delay}s`,
       }}
+      initial={cubeInitial}
+      animate={cubeAnimate}
+      transition={cube.transition}
       onMouseEnter={() => onHover(cube)}
       onMouseLeave={() => onHover(null)}
       onClick={() => onClick(cube)}
@@ -49,7 +55,7 @@ const Cube = memo(function Cube({ cube, isHovered, isNearby, isGlowing, onHover,
         <div className="hero__face hero__face--left" />
         <div className="hero__face hero__face--right" />
       </div>
-    </div>
+    </motion.div>
   )
 })
 
@@ -171,8 +177,7 @@ function Hero3D() {
             transition={{ duration: 0.8, ease }}
           >
             <h1 className="hero__title">
-              <span className="hero__title-main">PRAI</span>
-              <span className="hero__title-accent">MERO</span>
+              PRAIMERO
             </h1>
           </motion.div>
 

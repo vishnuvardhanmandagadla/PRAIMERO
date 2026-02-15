@@ -1,0 +1,177 @@
+/* ═══════════════════════════════════════════════════════════════
+   PARTNERS COMPONENT - Version 5 Design
+   Marquee animation with gradient text
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Partners Section - Main Container */
+.partners {
+  position: relative;
+  padding: var(--space-20) 0 var(--space-24) 0;
+  background:
+    radial-gradient(ellipse 80% 100% at 0% 50%, rgba(171, 71, 188, 0.08) 0%, rgba(156, 39, 176, 0.05) 40%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(142, 36, 170, 0.06) 0%, rgba(123, 31, 162, 0.04) 50%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 70% 20%, rgba(171, 71, 188, 0.07) 0%, rgba(156, 39, 176, 0.04) 45%, transparent 65%),
+    radial-gradient(ellipse 70% 80% at 90% 60%, rgba(156, 39, 176, 0.06) 0%, rgba(171, 71, 188, 0.04) 45%, transparent 70%),
+    linear-gradient(135deg, #faf5fc 0%, #f5eef9 20%, #f0e6f6 40%, #f5eef9 60%, #faf5fc 80%, #ffffff 100%);
+  background-color: #ffffff;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  isolation: isolate;
+}
+
+/* Partners Label - Section Title */
+.partners__label {
+  display: block;
+  margin-bottom: var(--space-16);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: var(--leading-normal);
+  background: linear-gradient(135deg, #1a0a1f 0%, #2d1b3d 25%, #4a2040 50%, #6a4c9a 75%, #7e57c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Partners Track - Masked Container */
+.partners__track {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 1) 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 1) 90%,
+    transparent 100%
+  );
+  will-change: transform;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* Partners Scroll - Animated Container */
+.partners__scroll {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  animation: marquee 30s linear infinite;
+  width: max-content;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Partner Item - Individual Partner Name */
+.partners__item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: var(--letter-wider);
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #1a0a1f 0%, #2d1b3d 25%, #4a2040 50%, #6a4c9a 75%, #7e57c2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s var(--ease-out-expo);
+  opacity: 1;
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  isolation: isolate;
+  will-change: opacity, background;
+}
+
+.partners__icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 0.5em;
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+}
+
+.partners__icon-wrapper svg,
+.partners__icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 2px rgba(149, 117, 205, 0.4));
+}
+
+/* Partner Item Hover - Enhanced Gradient */
+.partners__item:hover {
+  opacity: 1;
+  background: linear-gradient(135deg, #9575cd 0%, #7986cb 20%, #5c6bc0 40%, #7e57c2 60%, #6a4c9a 80%, #4a2040 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Marquee Animation - Smooth Infinite Scroll */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover for better UX */
+.partners__track:hover .partners__scroll {
+  animation-play-state: paused;
+}
+
+/* Smooth pause transition */
+.partners__scroll {
+  transition: animation-play-state 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .partners {
+    padding: var(--space-12) 0 var(--space-16) 0;
+  }
+
+  .partners__item {
+    font-size: var(--text-xl);
+  }
+
+  .partners__item svg,
+  .partners__icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.4em;
+  }
+
+  .partners__scroll {
+    gap: var(--space-12);
+  }
+}
