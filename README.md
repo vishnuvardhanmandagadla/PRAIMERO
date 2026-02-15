@@ -1,360 +1,320 @@
-# PRAIMERO Version 6 - Content Documentation
+# PRAIMERO
 
-## Overview
-Version 6 is a modern React-based enterprise AI solutions website featuring interactive 3D elements, smooth animations, and a comprehensive service showcase. The site uses a dark noisy gradient theme with purple/blue color accents.
+Enterprise AI consulting website built with React, featuring interactive CSS 3D models, scroll-triggered animations, and a premium design system.
 
----
-
-## Pages Structure
-
-### 1. Landing Page (`/`)
-**Route:** `/`  
-**Component:** `LandingPage.jsx`
-
-#### Sections:
-
-##### A. Hero Section (`Hero3D`)
-- **3D Interactive Scene:**
-  - Base plane with wave ripple effects on cube clicks
-  - 10x10 grid of 3D cubes (100 total cubes)
-  - Interactive cube hover effects (highlighted cube + nearby cubes)
-  - Click-to-trigger wave animation across all cubes
-  - Plane wave ripple animation from click position
-
-- **Content:**
-  - **Brand Title:** "PRAI" + "MERO" (with gradient accent)
-  - **Subtitle:** "Transforming Enterprise with Intelligent Solutions"
-  - **Description:** 
-    - "We architect AI-powered solutions across Oracle ERP, Salesforce, and ServiceNow—driving efficiency, insight, and measurable growth. PRAIMERO empowers enterprises to modernize operations, optimize decision-making, and unlock growth through AI-driven platforms and intelligent automation."
-  - **Tags:** AI | ERP | CRM | CLOUD | AUTOMATION
-  - **Action Buttons:**
-    - "Explore Services" (outline)
-    - "Get Started" (primary with + icon)
-
-##### B. About Section (`About`)
-- **Label:** "Who We Are"
-- **Title:** "A New Generation of Enterprise AI Partner"
-- **Content:**
-  - Paragraph 1: "PRAIMERO is a specialized AI consultancy focused exclusively on enterprise platforms. We don't just implement technology—we transform how organizations think, operate, and compete in the digital age."
-  - Paragraph 2: "Our team of certified experts brings deep platform knowledge combined with cutting-edge AI expertise to deliver solutions that are both powerful and practical. We bridge the gap between enterprise complexity and intelligent simplicity."
-  - Paragraph 3: "Built on a singular belief: that artificial intelligence should be at the core of every enterprise decision. We bring fresh thinking to established platforms like Oracle, Salesforce, and ServiceNow, helping organizations move beyond traditional implementations to truly intelligent operations."
-- **Statistics Grid:**
-  - 50+ Enterprise Clients
-  - 3 Core Platforms
-  - 99% Client Retention
-  - 24/7 Support Coverage
-
-##### C. Services Section (`Services`)
-- **Label:** "What We Do"
-- **Title:** "Enterprise Solutions Powered by AI"
-- **Subtitle:** "Delivering intelligent automation and transformative insights across three core enterprise platforms. We help enterprises harness the power of AI to drive efficiency, innovation, and measurable growth."
-- **Service Cards (3):**
-  1. **Oracle ERP** (⚡)
-     - Features: Financial Management, Supply Chain, Human Capital, Analytics & BI
-     - Description: "End-to-end enterprise resource planning powered by AI-driven insights and intelligent automation for seamless operations."
-   
-  2. **Salesforce** (☁️)
-     - Features: Sales Cloud, Service Cloud, Marketing Cloud, Einstein AI
-     - Description: "Transform customer relationships with AI-enhanced CRM solutions that drive engagement, revenue, and lasting loyalty."
-   
-  3. **ServiceNow** (🛠️)
-     - Features: ITSM, ITOM, Customer Service, HR Service Delivery
-     - Description: "Streamline enterprise operations with AI-powered workflow automation and intelligent service management."
-
-##### D. Footer (`Footer`)
-- **Brand:**
-  - Logo: "PR" + "AI" (accent) + "MERO"
-  - Tagline: "Enterprise AI solutions that transform how organizations operate, compete, and grow. We bridge the gap between enterprise complexity and intelligent simplicity, delivering powerful and practical solutions."
-- **Links Grid:**
-  - **Services:** Oracle ERP, Salesforce, ServiceNow
-  - **Company:** Home, Services, Contact
-  - **Get in Touch:**
-    - Email: info@praimero.com
-    - Phone: +1 (555) 000-0000
-    - Social: LinkedIn, Twitter
-- **Bottom:**
-  - Copyright: "© {year} PRAIMERO. All rights reserved."
-  - Legal: Privacy, Terms
+**Live Stack:** React 18 + Vite + Framer Motion + React Router DOM
 
 ---
 
-### 2. Oracle ERP Page (`/erp`)
-**Route:** `/erp`  
-**Component:** `ERPPage.jsx`
+## Getting Started
 
-#### Sections:
+```bash
+# Install dependencies
+npm install
 
-##### A. Hero Section
-- **Breadcrumb:** Home / Oracle ERP
-- **Title:** "Oracle ERP Solutions"
-- **Description:** "End-to-end enterprise resource planning powered by AI-driven insights and intelligent automation for seamless operations."
-- **Tags:** Financial Management, Supply Chain, Human Capital, Analytics & BI
-- **3D Model:** ERPModel3D component
+# Start development server
+npm run dev
 
-##### B. Core Modules Section
-- **Title:** "Core Modules"
-- **Modules (4):**
-  1. **Oracle Financials Cloud**
-     - "Comprehensive financial management with AI-powered forecasting, automated reconciliation, and real-time reporting across your entire organization."
-  
-  2. **Oracle Supply Chain Management**
-     - "Intelligent supply chain optimization leveraging machine learning for demand planning, inventory management, and logistics coordination."
-  
-  3. **Oracle HCM Cloud**
-     - "Transform human capital management with AI-driven talent acquisition, workforce analytics, and employee experience optimization."
-  
-  4. **Oracle Analytics Cloud**
-     - "Advanced analytics and business intelligence platform with embedded AI/ML capabilities for predictive insights and data-driven decision making."
+# Production build
+npm run build
 
-##### C. Key Benefits Section
-- **Title:** "Key Benefits"
-- **Benefits:**
-  - Unified data platform across all business functions
-  - AI-powered forecasting and predictive analytics
-  - Scalable cloud architecture for enterprise growth
-  - Reduced operational costs through intelligent automation
-- **CTA Button:** "Get Started"
-
-##### D. Footer
-- Same as Landing Page
+# Preview production build
+npm run preview
+```
 
 ---
 
-### 3. Salesforce Page (`/salesforce`)
-**Route:** `/salesforce`  
-**Component:** `SalesforcePage.jsx`
-
-#### Sections:
-
-##### A. Hero Section
-- **Breadcrumb:** Home / Salesforce
-- **Title:** "Salesforce Solutions"
-- **Description:** "Transform customer relationships with AI-enhanced CRM solutions that drive engagement, revenue, and lasting loyalty."
-- **Tags:** Sales Cloud, Service Cloud, Marketing Cloud, Einstein AI
-- **3D Model:** SalesforceModel3D component
-
-##### B. Core Modules Section
-- **Title:** "Core Modules"
-- **Modules (4):**
-  1. **Sales Cloud**
-     - "Accelerate sales cycles with AI-powered lead scoring, opportunity insights, and automated pipeline management for consistent revenue growth."
-  
-  2. **Service Cloud**
-     - "Deliver exceptional customer service with intelligent case routing, AI chatbots, and omnichannel support that resolves issues faster."
-  
-  3. **Marketing Cloud**
-     - "Orchestrate personalized customer journeys with AI-driven segmentation, predictive content, and cross-channel campaign optimization."
-  
-  4. **Einstein AI**
-     - "Embedded artificial intelligence across the Salesforce platform delivering predictions, recommendations, and automation at every touchpoint."
-
-##### C. Key Benefits Section
-- **Title:** "Key Benefits"
-- **Benefits:**
-  - 360-degree customer view with AI insights
-  - Automated workflows reducing manual processes by 40%
-  - Predictive analytics for proactive engagement
-  - Seamless integration with existing enterprise systems
-- **CTA Button:** "Get Started"
-
-##### D. Footer
-- Same as Landing Page
-
----
-
-### 4. ServiceNow Page (`/servicenow`)
-**Route:** `/servicenow`  
-**Component:** `ServiceNowPage.jsx`
-
-#### Sections:
-
-##### A. Hero Section
-- **Breadcrumb:** Home / ServiceNow
-- **Title:** "ServiceNow Solutions"
-- **Description:** "Streamline enterprise operations with AI-powered workflow automation and intelligent service management."
-- **Tags:** ITSM, ITOM, Customer Service, HR Service Delivery
-- **3D Model:** ServiceNowModel3D component
-
-##### B. Core Modules Section
-- **Title:** "Core Modules"
-- **Modules (4):**
-  1. **IT Service Management (ITSM)**
-     - "Modernize IT service delivery with AI-powered incident management, predictive intelligence, and automated resolution workflows."
-  
-  2. **IT Operations Management (ITOM)**
-     - "Gain full visibility into IT infrastructure with AIOps-driven event management, cloud optimization, and proactive health monitoring."
-  
-  3. **Customer Service Management**
-     - "Deliver connected customer experiences with AI-assisted agents, self-service portals, and automated case management workflows."
-  
-  4. **HR Service Delivery**
-     - "Transform employee experiences with intelligent HR workflows, AI-powered case management, and unified service portals."
-
-##### C. Key Benefits Section
-- **Title:** "Key Benefits"
-- **Benefits:**
-  - Single platform for enterprise-wide workflows
-  - AI-driven automation reducing ticket resolution time
-  - Proactive issue detection with predictive intelligence
-  - Enhanced employee and customer satisfaction scores
-- **CTA Button:** "Get Started"
-
-##### D. Footer
-- Same as Landing Page
-
----
-
-### 5. Contact Page (`/contact`)
-**Route:** `/contact`  
-**Component:** `ContactPage.jsx`
-
-#### Sections:
-
-##### A. Hero Section
-- **Breadcrumb:** Home / Contact
-- **Title:** "Let's Build Something Great"
-- **Subtitle:** "Ready to transform your enterprise? Tell us about your project and we'll get back to you within 24 hours."
-
-##### B. Contact Form Section
-- **Form Fields:**
-  - Name (required)
-  - Email (required)
-  - Company
-  - Service (dropdown: Oracle ERP, Salesforce, ServiceNow, Other)
-  - Message (required, textarea)
-- **Submit Button:** "Send Message"
-
-##### C. Contact Info Sidebar
-- **Email:** info@praimero.com
-- **Phone:** +1 (555) 000-0000
-- **Follow Us:** LinkedIn, Twitter
-- **Services Links:**
-  - Oracle ERP
-  - Salesforce
-  - ServiceNow
-
-##### D. Footer
-- Same as Landing Page
-
----
-
-## Navigation
-
-### Navbar Component
-- **Logo:** "PR" + "AI" (accent) + "MERO"
-- **Links:**
-  - Home (`/`)
-  - Oracle ERP (`/erp`)
-  - Salesforce (`/salesforce`)
-  - ServiceNow (`/servicenow`)
-- **CTA:** "Let's Talk" (links to `/contact`)
-- **Mobile Menu:** Hamburger menu with slide-out navigation
-
----
-
-## Design Theme
-
-### Colors
-- **Primary Gradient:** Pink (#e8a4c4) to Blue (#a8c4e8)
-- **Background:** Dark noisy gradient (purple/blue tones)
-- **Text:** White with varying opacity
-- **Accents:** Gradient text for highlights
-
-### Typography
-- **Font Family:** Inter Tight (Awwwards-inspired)
-- **Headings:** Bold, tight letter spacing
-- **Body:** Regular weight, relaxed line height
-
-### Visual Effects
-- **Noisy Gradient Background:** SVG noise texture overlay
-- **3D Elements:** CSS transforms for cubes and planes
-- **Animations:** Framer Motion for smooth transitions
-- **Grid Patterns:** Subtle embossed grid on service cards
-
----
-
-## Technical Stack
-
-- **Framework:** React 18
-- **Routing:** React Router DOM
-- **Animations:** Framer Motion
-- **Styling:** CSS with CSS Variables
-- **Build Tool:** Vite
-- **Font:** Inter Tight (Google Fonts)
-
----
-
-## Data Structure
-
-### Services Data (`src/data/services.js`)
-Each service object contains:
-- `id`: Unique identifier
-- `title`: Service name
-- `icon`: Emoji icon
-- `shortDescription`: Brief description
-- `route`: URL path
-- `features`: Array of feature names
-- `modules`: Array of module objects (name, description)
-- `benefits`: Array of benefit strings
-
----
-
-## Component Architecture
+## Project Structure
 
 ```
 src/
-├── components/
-│   ├── Hero3D/          # 3D hero section with interactive cubes
-│   ├── About/            # About section with stats
-│   ├── Services/         # Services grid section
-│   ├── Footer/           # Site footer
-│   ├── Navbar/           # Navigation bar
-│   └── ServiceModels/    # 3D models for service pages
-├── pages/
-│   ├── Landing/          # Home page
-│   ├── ERP/              # Oracle ERP page
-│   ├── Salesforce/       # Salesforce page
-│   ├── ServiceNow/       # ServiceNow page
-│   └── Contact/          # Contact page
+├── App.jsx                          # Root — routing, lazy loading, AnimatePresence
+├── main.jsx                         # Entry point
+├── styles/
+│   └── index.css                    # Global styles, CSS variables, typography
 ├── data/
-│   └── services.js       # Service data
-└── styles/
-    └── index.css         # Global styles
+│   └── services.js                  # Service data (modules, features, benefits)
+├── components/
+│   ├── Navbar/                      # Fixed navigation bar
+│   ├── Hero3D/                      # Landing hero with 3D cube grid
+│   ├── About/                       # "Who We Are" section with stats
+│   ├── Services/                    # "Our Expertise" service cards
+│   ├── CTA/                         # Call-to-action section
+│   ├── Footer/                      # Site footer
+│   ├── Intro/                       # Splash intro animation (disabled)
+│   └── ServiceModels/               # 3D models for service pages
+│       ├── ERPModel3D               # Stacked data layers
+│       ├── SalesforceModel3D        # Orbiting network nodes
+│       └── ServiceNowModel3D        # Interlocking gears
+└── pages/
+    ├── Landing/LandingPage.jsx      # Home page
+    ├── ERP/ERPPage.jsx              # Oracle ERP service page
+    ├── Salesforce/SalesforcePage.jsx # Salesforce service page
+    ├── ServiceNow/ServiceNowPage.jsx# ServiceNow service page
+    └── Contact/ContactPage.jsx      # Contact form page
 ```
 
 ---
 
-## Key Features
+## Pages & Routes
 
-1. **Interactive 3D Hero:** Clickable cube grid with wave animations
-2. **Smooth Animations:** Page transitions and scroll-triggered animations
-3. **Responsive Design:** Mobile-first approach with breakpoints
-4. **Service Showcase:** Detailed pages for each enterprise platform
-5. **Contact Form:** Functional contact form with validation
-6. **Modern UI:** Glassmorphism effects, gradient accents, noisy textures
+| Route          | Page            | Description                          |
+|----------------|-----------------|--------------------------------------|
+| `/`            | LandingPage     | Home with hero, about, services, CTA |
+| `/erp`         | ERPPage         | Oracle ERP service details           |
+| `/salesforce`  | SalesforcePage  | Salesforce CRM service details       |
+| `/servicenow`  | ServiceNowPage  | ServiceNow automation details        |
+| `/contact`     | ContactPage     | Contact form with info sidebar       |
 
----
-
-## Content Summary
-
-### Total Pages: 5
-1. Landing Page (Home)
-2. Oracle ERP Page
-3. Salesforce Page
-4. ServiceNow Page
-5. Contact Page
-
-### Total Services: 3
-1. Oracle ERP (4 modules, 4 benefits)
-2. Salesforce (4 modules, 4 benefits)
-3. ServiceNow (4 modules, 4 benefits)
-
-### Total Sections on Landing: 4
-1. Hero (3D Interactive)
-2. About (with stats)
-3. Services (3 cards)
-4. Footer
+All service pages and the contact page are **lazy-loaded** via `React.lazy()` for faster initial page load.
 
 ---
 
-*Last Updated: Based on current codebase structure*
+## Sections Breakdown
+
+### Navbar
+
+Fixed-position navigation bar with glassmorphic blur background. Tracks scroll state to adjust opacity. Includes desktop link bar, CTA button ("Let's Talk"), and mobile hamburger menu with animated slide-out drawer.
+
+- **Logo:** PR**AI**MERO (gradient accent on "AI")
+- **Links:** Home, Oracle ERP, Salesforce, ServiceNow
+- **Mobile:** Full-screen slide-out menu with numbered links and staggered entry animations
+- **Scroll behavior:** Background darkens and blur increases on scroll
+
+---
+
+### Hero3D (Landing Page)
+
+Full-viewport hero section with an interactive 3D isometric cube grid and brand content.
+
+**3D Cube Grid:**
+- 10x10 grid of CSS 3D cubes (100 cubes, 6 faces each) rendered in isometric perspective (`rotateX(60deg) rotateZ(-45deg)`)
+- Each cube is a `React.memo` component for optimized re-renders
+- **Hover interaction:** Hovered cube rises up (`translateZ(35px)`) with brand gradient colors (pink-to-blue). Eight neighboring cubes rise slightly (`translateZ(10px)`) with lighter gradients
+- **Click interaction:** Triggers a color glow ripple that spreads outward from the clicked cube. A radial gradient wave also sweeps across the base plane
+- Cubes fade in with staggered CSS animation on page load
+
+**Content:**
+- Brand title: "PRAI" (dark) + "MERO" (purple gradient)
+- Subtitle: "Empowering Enterprises Through Intelligent Innovation"
+- Description paragraph about AI-driven enterprise solutions
+- Pill-styled tags: AI, ERP, CRM, CLOUD, AUTOMATION, ANALYTICS
+- Two action buttons: "Explore Solutions" (outline) and "Start Your Transformation" (dark primary with + icon)
+
+**Background:** Light gradient (`#fafafa` to `#f2f0fa`) with decorative pink and purple radial accent glows.
+
+---
+
+### About (Landing Page)
+
+"Who We Are" section presented in a rounded card layout with premium gradient overlays.
+
+**Content:**
+- Section label with flanking decorative gradient lines
+- Title: "Redefining Enterprise Intelligence" (with gradient-text emphasis)
+- Three paragraphs describing PRAIMERO's mission and approach
+- Decorative gradient divider line below content
+
+**Stats Grid (4 cards):**
+| Value | Label              |
+|-------|--------------------|
+| 50+   | Enterprise Clients |
+| 3     | Core Platforms     |
+| 99%   | Client Retention   |
+| 24/7  | Support Coverage   |
+
+Each stat card features a purple gradient accent bar on top, white background with subtle inner highlight, and hover glow effect.
+
+**Design:** Rounded card (`border-radius: 32px`) with margin from viewport edges, purple-blue gradient overlays, and `content-visibility: auto` for off-screen rendering optimization.
+
+---
+
+### Services (Landing Page)
+
+"Our Expertise" section locked to viewport height (`100vh`) with animated background effects.
+
+**Background:**
+- Rich purple-to-blue radial gradient layers
+- Four animated amoeba blobs (blurred gradient elements) drifting across the background with organic shapes
+- Fine-grain SVG noise texture overlay (`feTurbulence`, `mix-blend-mode: overlay`)
+
+**Cards (3 service cards in a grid):**
+Each card displays:
+- Icon, numbered label (01-03)
+- Service title and short description
+- Feature pills (e.g., "Financial Intelligence", "Supply Chain Optimization")
+- "Learn More" link with arrow icon
+
+**Card styling:** Glassmorphic effect with `backdrop-filter: blur(12px)`, embossed grid pattern overlay, and hover lift animation.
+
+| # | Service    | Features                                                                  |
+|---|------------|---------------------------------------------------------------------------|
+| 1 | Oracle ERP | Financial Intelligence, Supply Chain Optimization, Human Capital Analytics, Business Intelligence |
+| 2 | Salesforce | Revenue Acceleration, Smart Service Management, Marketing Automation, Einstein AI Integration |
+| 3 | ServiceNow | IT Service Automation, Infrastructure Intelligence, Customer Support Systems, HR Service Platforms |
+
+---
+
+### CTA (Landing Page)
+
+Call-to-action section in a rounded card with gradient background matching the About section's design language.
+
+- Title: "The AI your enterprise deserves"
+- Subtitle about elevating operations with AI
+- Two buttons: "Start Free Trial" (outline) and "Get A Demo" (primary)
+- Fade-up scroll animations via Framer Motion
+
+---
+
+### Footer
+
+Site-wide footer with brand info, navigation links, and contact details.
+
+- **Brand:** PR**AI**MERO logo with tagline
+- **Link columns:** Services (3 links), Company (3 links), Get in Touch (email, phone, social icons)
+- **Bottom bar:** Copyright notice + Privacy/Terms links
+- **Background:** Light gray (`#f5f5f5`) with noise texture overlay
+
+---
+
+## Service Pages (ERP, Salesforce, ServiceNow)
+
+All three service pages share the same layout structure (`ServicePage.css`) with unique content and 3D models.
+
+### Hero Section
+- White noise texture background with subtle grid pattern
+- Breadcrumb navigation (Home / Service Name)
+- Service title with gradient emphasis
+- Description and feature tags
+- **3D model** positioned on the right side (absolute, responsive scaling)
+
+### Modules Section
+- Dark purple gradient background (matching landing Services section)
+- Animated amoeba blobs in background
+- Noise texture overlay
+- 2-column grid of module cards with glassmorphic styling
+- Each module: numbered label, title, description
+
+### Benefits Section
+- Light background with noise texture
+- Checklist of strategic advantages
+- CTA button linking to contact page
+
+### 3D Models
+
+Each service page features a unique CSS 3D model:
+
+**Oracle ERP — Stacked Data Layers (`ERPModel3D`)**
+- 4 translucent horizontal slabs viewed from isometric angle
+- Layers labeled: Finance, Supply Chain, HCM, Analytics
+- Colors graduate from pink (bottom) to indigo (top)
+- Idle animation: gentle float + slow Y-axis rotation drift
+- Hover: individual layers lift with glow effect
+
+**Salesforce — Orbiting Network (`SalesforceModel3D`)**
+- Central hub sphere labeled "CRM" with concentric pulse rings
+- 4 orbiting nodes on tilted circular paths at different speeds
+- Nodes: Sales (7s), Service (10s), Marketing (13s), Commerce (16s)
+- Counter-rotation keeps labels upright
+- Data-flow arcs spin around orbit rings
+
+**ServiceNow — Interlocking Gears (`ServiceNowModel3D`)**
+- 1 large gear (12 teeth, labeled "ITSM") + 2 smaller gears (8 teeth each, labeled "ITOM" and "CSM")
+- Synchronized rotation: large gear clockwise (12s), small gears counter-clockwise (8s)
+- Counter-rotating labels stay readable
+- Tooth rate matched (1 tooth/sec) for visual meshing
+
+---
+
+## Contact Page
+
+### Hero
+- Breadcrumb, title: "Let's Build the Future Together"
+- Subtitle about 24-hour response time
+
+### Contact Form
+- Fields: Full Name, Email Address, Organization, Service Interest (dropdown), Project Details (textarea)
+- Submit button: "Submit Inquiry"
+
+### Info Sidebar
+- Email: info@praimero.com
+- Phone: +1 (555) 000-0000
+- Social links: LinkedIn, Twitter
+- Quick links to service pages
+
+---
+
+## Design System
+
+### Color Palette
+
+| Role           | Value                                      |
+|----------------|--------------------------------------------|
+| Pink accent    | `#e8a4c4`                                  |
+| Purple         | `#9575cd`                                  |
+| Blue           | `#5c6bc0`, `#7986cb`                       |
+| Indigo         | `#7e57c2`                                  |
+| Dark navy      | `#1a1a2e`, `#0a0a0f`                       |
+| Light bg       | `#f5f5f5`, `#fafafa`                       |
+| Gradient text  | `linear-gradient(135deg, #9575cd, #5c6bc0)`|
+
+### Typography
+
+- **Display font:** `var(--font-display)` — Inter Tight
+- **Headings:** 700-800 weight, tight letter-spacing (`-0.02em` to `-0.03em`)
+- **Body:** 400 weight, relaxed line-height (1.6-1.8)
+- **Labels:** Uppercase, `0.12em`-`0.2em` letter-spacing, 600 weight
+
+### Visual Effects
+
+- **Glassmorphism:** `backdrop-filter: blur(12px)` on cards over dark backgrounds
+- **Noise texture:** Inline SVG `feTurbulence` filter as CSS `background-image`
+- **Gradient text:** `-webkit-background-clip: text` with linear gradients
+- **Amoeba blobs:** Large blurred gradient elements with CSS `@keyframes` transform animations
+- **3D transforms:** `perspective`, `preserve-3d`, `rotateX/Y/Z`, `translateZ`
+- **Scroll animations:** Framer Motion `whileInView` with `once: true`
+
+---
+
+## Performance Optimizations
+
+### React
+
+- **Memoized cubes:** Each of the 100 Hero3D cubes is wrapped in `React.memo`, only re-rendering when its own hover/glow state changes
+- **Lazy-loaded routes:** Service and contact pages use `React.lazy()` + `Suspense` for code splitting
+- **Batched state updates:** Click wave groups cubes by distance, reducing state updates from ~300 to ~19
+- **Set-based lookups:** `nearbyHovered` uses `Set.has()` (O(1)) instead of `Array.includes()` (O(n))
+
+### CSS
+
+- **GPU-only animations:** Blob keyframes animate only `transform` (not `border-radius`), keeping animations on the compositor thread
+- **Targeted transitions:** `.hero__face` transitions specific properties (`background, box-shadow, border-color`) instead of `all`
+- **Reduced backdrop-filter:** Blur values lowered from 20-24px to 12px, `saturate()` removed
+- **Content visibility:** Off-screen sections (About, CTA, Footer) use `content-visibility: auto` to skip rendering until near viewport
+
+### Build
+
+- **Code splitting:** Vite produces separate chunks for each lazy-loaded page (~4KB each)
+- **Main bundle:** ~301KB (96KB gzipped) including React, Framer Motion, and landing page
+
+---
+
+## Tech Stack
+
+| Technology       | Version | Purpose                        |
+|------------------|---------|--------------------------------|
+| React            | 18.3    | UI framework                   |
+| Vite             | 5.4     | Build tool and dev server      |
+| Framer Motion    | 11.5    | Page transitions and scroll animations |
+| React Router DOM | 6.26    | Client-side routing            |
+| CSS              | -       | Styling (no preprocessor)      |
+
+---
+
+## Scripts
+
+```bash
+npm run dev      # Start Vite dev server with HMR
+npm run build    # Production build to dist/
+npm run preview  # Preview production build locally
+```
